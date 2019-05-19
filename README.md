@@ -3,7 +3,7 @@
 Following are the steps to deploy the application:
 
 1. Clone the code from repository using following branch: git clone --branch master_change https://github.com/anubhav-s/blog-app.git
-2. Go to the root directory.
+2. Go to the root directory, where manage.py is found.
 3. Create tables for the models in the database:
    a. Run the commands - "python3 manage.py makemigrations blog"
    b. "python3 manage.py migrate blog"
