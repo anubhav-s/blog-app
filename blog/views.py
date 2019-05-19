@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import BlogDb
 from .forms import PostForm
 
@@ -12,8 +13,20 @@ def blog_list(request):
     :param request:
     :return:
     """
-    posts = BlogDb.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-    return render(request, 'blog/blog_list.html', {'posts': posts})
+    # posts = BlogDb.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    object_list = BlogDb.published.all()
+    paginator = Paginator(object_list, 3)
+    page = request.GET.get('page', 1)
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer deliver the first page
+        posts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range deliver last page of results
+        posts = paginator.page(paginator.num_pages)
+
+    return render(request, 'blog/blog_list.html', {'page': page, 'posts': posts})
 
 
 def blog_detail(request, pk):
