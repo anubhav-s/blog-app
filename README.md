@@ -3,6 +3,7 @@
 Following are the steps to deploy the application:
 
 1. Clone the code from repository using - git clone https://github.com/anubhav-s/blog-app.git.
+   There is pagination implemented in the following branch: git clone --branch master_change https://github.com/anubhav-s/blog-app.git
 2. Go to the root directory.
 3. Create tables for the models in the database:
    a. Run the commands - "python3 manage.py makemigrations blog"
