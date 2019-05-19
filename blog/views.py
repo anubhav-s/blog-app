@@ -4,12 +4,10 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import BlogDb
 from .forms import PostForm
 
-# Create your views here.
-
 
 def blog_list(request):
     """
-    This method lists all the blogs reading from the database
+    This method lists all the blogs reading from the database and post it to the html page.
     :param request:
     :return:
     """
@@ -30,6 +28,12 @@ def blog_list(request):
 
 
 def blog_detail(request, pk):
+    """
+    This view method is used to see a particular blog in detail on a html page.
+    :param request:
+    :param pk:
+    :return:
+    """
     post = get_object_or_404(BlogDb, pk=pk)
     return render(request, 'blog/blog_detail.html', {'post': post})
 
@@ -37,6 +41,7 @@ def blog_detail(request, pk):
 def blog_new(request):
     """
     This method is called when new blog has to be created and saves the content in database.
+    The content from the text fields of the form is read and stored in database.
     :param request:
     :return:
     """
@@ -55,9 +60,9 @@ def blog_new(request):
 
 def blog_edit(request, pk):
     """
-    This method is called when editing the blog and saves the content in database.
-    :param request:
-    :param pk:
+    This method is called when editing the existing blog and saves the content in database.
+    The content to be edited from the text fields is read from the form and saved in database.
+    :param request: This is the default parameter for creating a view
     :return:
     """
     post = get_object_or_404(BlogDb, pk=pk)
